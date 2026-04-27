@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAB Pupuk – KTSadar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:wght@300;400;600&display=swap');
+
+  :root {
+    --hijau: #1a4a2e;
+    --hijau-mid: #2d7a4f;
+    --hijau-light: #4caf78;
+    --emas: #c8973a;
+    --emas-light: #f0c66a;
+    --krem: #f9f4ec;
+    --krem-dark: #ede4d3;
+    --teks: #1c1a15;
+    --teks-mid: #4a4438;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--krem);
+    font-family: 'Source Serif 4', serif;
+    color: var(--teks);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--hijau);
+    border-radius: 16px;
+    padding: 32px 28px 24px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(200,151,58,0.15);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 60px;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(76,175,120,0.12);
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--emas);
+    color: var(--hijau);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .header h1 span { color: var(--emas-light); }
+  .header-sub {
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    font-weight: 300;
+  }
+  .org-info {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .org-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .org-label { color: rgba(255,255,255,0.5); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .org-value { color: #fff; font-size: 13px; font-weight: 600; }
+
+  /* SUMMARY CARDS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 16px;
+    border: 1px solid var(--krem-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .card.accent {
+    background: var(--hijau);
+    border-color: var(--hijau);
+  }
+  .card.gold {
+    background: linear-gradient(135deg, #c8973a 0%, #e8b84b 100%);
+    border-color: var(--emas);
+  }
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .card-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teks-mid);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .card.accent .card-label,
+  .card.gold .card-label {
+    color: rgba(255,255,255,0.75);
+  }
+  .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 3.5vw, 22px);
+    color: var(--hijau);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .card.accent .card-value { color: #fff; }
+  .card.gold .card-value { color: #fff; }
+  .card-sub {
+    font-size: 11px;
+    color: var(--teks-mid);
+    margin-top: 3px;
+  }
+  .card.accent .card-sub { color: rgba(255,255,255,0.6); }
+  .card.gold .card-sub { color: rgba(255,255,255,0.75); }
+
+  /* TABLE SECTION */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--hijau);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--krem-dark);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--krem-dark);
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  thead tr {
+    background: var(--hijau);
+  }
+  thead th {
+    color: #fff;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  thead th:not(:first-child) { text-align: right; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--krem-dark);
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--krem); }
+
+  td {
+    padding: 11px 14px;
+    vertical-align: middle;
+  }
+  td:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
+  .td-label { font-weight: 600; color: var(--hijau); }
+  .td-note { font-size: 11px; color: var(--teks-mid); font-weight: 400; }
+
+  tfoot tr {
+    background: var(--krem-dark);
+  }
+  tfoot td {
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    padding: 13px 14px;
+    color: var(--hijau);
+  }
+  tfoot td:not(:first-child) { text-align: right; }
+
+  /* PROFIT BOX */
+  .profit-box {
+    background: var(--hijau);
+    border-radius: 14px;
+    padding: 22px 22px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .profit-item { display: flex; flex-direction: column; gap: 4px; }
+  .profit-label { color: rgba(255,255,255,0.6); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+  .profit-value { color: #fff; font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
+  .profit-value.emas { color: var(--emas-light); }
+  .profit-note { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+  .divider {
+    width: 1px;
+    background: rgba(255,255,255,0.15);
+    grid-row: span 1;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--krem-dark);
+    color: var(--teks-mid);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .footer strong { color: var(--hijau); }
+
+  .badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+    justify-content: center;
+  }
+  .badge {
+    background: var(--krem-dark);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    color: var(--teks-mid);
+    font-weight: 600;
+  }
+
+  @media (max-width: 480px) {
+    .cards-grid { grid-template-columns: 1fr 1fr; }
+    .profit-box { grid-template-columns: 1fr; }
+    thead th { font-size: 10px; padding: 10px 10px; }
+    td { padding: 9px 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">RAB Program</div>
+    <h1>Belanja <span>Pupuk</span><br>KTSadar 2026</h1>
+    <p class="header-sub">Rencana Anggaran Biaya · Skema Bagi Hasil Pemodal</p>
+    <div class="org-info">
+      <div class="org-item">
+        <span class="org-label">Organisasi</span>
+        <span class="org-value">Kelompok Tani Sadar</span>
+      </div>
+      <div class="org-item">
+        <span class="org-label">Lokasi</span>
+        <span class="org-value">Pasir Ipis, Gunungguruh</span>
+      </div>
+      <div class="org-item">
+        <span class="org-label">Luas Lahan</span>
+        <span class="org-value">7,5 Hektar · 20 Anggota</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY CARDS -->
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon">🌾</div>
+      <div class="card-label">Kuota Poktan</div>
+      <div class="card-value">48 Ton</div>
+      <div class="card-sub">= 960 karung @50 kg</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💰</div>
+      <div class="card-label">Modal Dibutuhkan</div>
+      <div class="card-value">Rp 93,12 Jt</div>
+      <div class="card-sub">960 × Rp 97.000</div>
+    </div>
+    <div class="card accent">
+      <div class="card-icon">📦</div>
+      <div class="card-label">Harga Jual</div>
+      <div class="card-value">Rp 120.000</div>
+      <div class="card-sub">per karung / 50 kg</div>
+    </div>
+    <div class="card gold">
+      <div class="card-icon">✨</div>
+      <div class="card-label">Total Omset</div>
+      <div class="card-value">Rp 115,2 Jt</div>
+      <div class="card-sub">960 × Rp 120.000</div>
+    </div>
+  </div>
+
+  <!-- TABEL HARGA SATUAN -->
+  <div class="section-title">Rincian Harga Per Karung</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Komponen</th>
+        <th>Per Karung</th>
+        <th>Per Kg</th>
+        <th>Keterangan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-label">Harga Beli Pupuk</td>
+        <td>Rp 97.000</td>
+        <td>Rp 1.940</td>
+        <td class="td-note">HPP / modal pokok</td>
+      </tr>
+      <tr>
+        <td class="td-label">Harga Jual ke Anggota</td>
+        <td>Rp 120.000</td>
+        <td>Rp 2.400</td>
+        <td class="td-note">Harga distribusi Poktan</td>
+      </tr>
+      <tr>
+        <td class="td-label">Margin Kotor</td>
+        <td><strong>Rp 23.000</strong></td>
+        <td>Rp 460</td>
+        <td class="td-note">Selisih jual – beli</td>
+      </tr>
+      <tr>
+        <td class="td-label">Bagi Hasil Pemodal</td>
+        <td>Rp 10.000</td>
+        <td>Rp 200</td>
+        <td class="td-note">Fee investor per karung</td>
+      </tr>
+      <tr>
+        <td class="td-label">Keuntungan Bersih KTSadar</td>
+        <td><strong style="color:#2d7a4f;">Rp 13.000</strong></td>
+        <td>Rp 260</td>
+        <td class="td-note">Sisa setelah bagi hasil</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TABEL REKAPITULASI TOTAL -->
+  <div class="section-title">Rekapitulasi Total (960 Karung)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Pos Keuangan</th>
+        <th>Satuan</th>
+        <th>Volume</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-label">Total Modal Belanja Pupuk</td>
+        <td>Rp 97.000</td>
+        <td>960 krg</td>
+        <td><strong>Rp 93.120.000</strong></td>
+      </tr>
+      <tr>
+        <td class="td-label">Total Omset Penjualan</td>
+        <td>Rp 120.000</td>
+        <td>960 krg</td>
+        <td><strong>Rp 115.200.000</strong></td>
+      </tr>
+      <tr>
+        <td class="td-label">Total Margin Kotor</td>
+        <td>Rp 23.000</td>
+        <td>960 krg</td>
+        <td><strong>Rp 22.080.000</strong></td>
+      </tr>
+      <tr>
+        <td class="td-label">Total Bagi Hasil Pemodal</td>
+        <td>Rp 10.000</td>
+        <td>960 krg</td>
+        <td style="color:#c8973a;"><strong>Rp 9.600.000</strong></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3">💚 Keuntungan Bersih KTSadar</td>
+        <td>Rp 12.480.000</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- PROFIT DISTRIBUTION BOX -->
+  <div class="profit-box">
+    <div class="profit-item">
+      <span class="profit-label">Return Pemodal</span>
+      <span class="profit-value emas">Rp 9.600.000</span>
+      <span class="profit-note">per siklus belanja penuh</span>
+    </div>
+    <div class="profit-item">
+      <span class="profit-label">Keuntungan KTSadar</span>
+      <span class="profit-value">Rp 12.480.000</span>
+      <span class="profit-note">kas operasional Poktan</span>
+    </div>
+    <div class="profit-item">
+      <span class="profit-label">Yield Pemodal</span>
+      <span class="profit-value emas">~10,3%</span>
+      <span class="profit-note">dari total modal Rp 93,12 Jt</span>
+    </div>
+    <div class="profit-item">
+      <span class="profit-label">Total Laba Gabungan</span>
+      <span class="profit-value">Rp 22.080.000</span>
+      <span class="profit-note">margin kotor keseluruhan</span>
+    </div>
+  </div>
+
+  <!-- ASUMSI -->
+  <div class="section-title">Asumsi & Catatan</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Parameter</th>
+        <th>Nilai</th>
+        <th>Satuan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="td-label">Isi per karung</td>
+        <td>50</td>
+        <td>kg</td>
+      </tr>
+      <tr>
+        <td class="td-label">Total kuota</td>
+        <td>48.000</td>
+        <td>kg = 48 ton</td>
+      </tr>
+      <tr>
+        <td class="td-label">Jumlah karung</td>
+        <td>960</td>
+        <td>karung</td>
+      </tr>
+      <tr>
+        <td class="td-label">Harga beli/karung</td>
+        <td>Rp 97.000</td>
+        <td>HPP</td>
+      </tr>
+      <tr>
+        <td class="td-label">Harga jual/karung</td>
+        <td>Rp 120.000</td>
+        <td>ke anggota Poktan</td>
+      </tr>
+      <tr>
+        <td class="td-label">Bagi hasil pemodal</td>
+        <td>Rp 10.000</td>
+        <td>per karung (flat)</td>
+      </tr>
+      <tr>
+        <td class="td-label">Skema bagi hasil</td>
+        <td colspan="2">Flat fee per karung (bukan % modal)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    <strong>Kelompok Tani Sadar (KTSadar)</strong><br>
+    SK No. 141.1/18/XI/2021 · Kampung Pasir Ipis, Desa Gunungguruh<br>
+    Kec. Gunungguruh, Kab. Sukabumi, Jawa Barat<br>
+    Ketua: H. Pudin · Sekretaris: HUDRI · Bendahara: Dian Haerani
+    <div class="badge-row">
+      <span class="badge">📱 083871666136</span>
+      <span class="badge">✉ malviejayagroup@gmail.com</span>
+      <span class="badge">🏦 Mandiri 1820016298168</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
